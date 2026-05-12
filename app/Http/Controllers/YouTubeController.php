@@ -27,8 +27,27 @@ class YouTubeController extends Controller
 
         $videos = $data['items'] ?? [];
 
+        // STEP 2: extract video IDs
+        $videoIds = collect($videos)->pluck('id.videoId')->filter()->implode(',');
+
+        // STEP 3: get details (views, stats, etc.)
+        $statsResponse = Http::get('https://www.googleapis.com/youtube/v3/videos', [
+            'part' => 'statistics, snippet',
+            'id' => $videoIds,
+            'key' => $apiKey
+        ]);
+
+        $statsData = $statsResponse->json()['items'] ?? [];
+
+        // map stats by video id
+        $videoStats = [];
+        foreach ($statsData as $item) {
+            $videoStats[$item['id']] = $item;
+        }
+
         return view('youtube', [
             'videos' => $videos,
+            'videoStats' => $videoStats,
             'search' => $search,
             'platform' => 'YouTube',
             'totalVideos' => $data['pageInfo']['totalResults'] ?? 0,

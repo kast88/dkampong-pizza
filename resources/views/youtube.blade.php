@@ -186,6 +186,11 @@
         $channel = $video['snippet']['channelTitle'];
         $thumb = $video['snippet']['thumbnails']['medium']['url'];
         $videoId = $video['id']['videoId'] ?? '';
+
+        $stats = $videoStats[$videoId]['statistics'] ?? [];
+        $views = $stats['viewCount'] ?? 0;
+
+        $published = $video['snippet']['publishedAt'] ?? null;
     @endphp
 
     <div class="video-card">
@@ -193,7 +198,16 @@
 
         <div class="content">
             <div class="title">{{ $title }}</div>
-            <div class="channel">🎥 {{ $channel }}</div>
+
+            <div class="channel">👤 {{ $channel }}</div>
+
+            <div style="font-size:12px; opacity:0.7;">
+                👁 {{ number_format($views) }} views
+            </div>
+
+            <div style="font-size:12px; opacity:0.7;">
+                📅 {{ \Carbon\Carbon::parse($published)->diffForHumans() }}
+            </div>
 
             <a class="btn"
             href="/watch_youtube/{{ $videoId }}">
