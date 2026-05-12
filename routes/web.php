@@ -8,3 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/', [YouTubeController::class, 'index']);
+
+Route::get('/watch/{id}', function ($id) {
+    return view('watch_youtube', compact('id'));
+});

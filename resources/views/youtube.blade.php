@@ -190,8 +190,8 @@
             <div class="title">{{ $title }}</div>
             <div class="channel">🎥 {{ $channel }}</div>
 
-            <a class="btn" target="_blank"
-               href="https://www.youtube.com/watch?v={{ $videoId }}">
+            <a class="btn"
+            href="/watch/{{ $videoId }}">
                 Watch
             </a>
         </div>
