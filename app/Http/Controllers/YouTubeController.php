@@ -18,7 +18,7 @@ class YouTubeController extends Controller
             'part' => 'snippet',
             'q' => $search,
             'type' => 'video',
-            'maxResults' => 12,
+            'maxResults' => 10,
             'key' => $apiKey,
             'pageToken' => $pageToken
         ]);
