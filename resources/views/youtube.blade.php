@@ -4,6 +4,7 @@
     <title>D'Kampong Pizza Dashboard</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
 
@@ -230,34 +231,116 @@
     </div>
 
     <div class="card-box">
-        <h2>{{ $search }}</h2>
-        <p>Search Keyword</p>
+
+        <h2 style="margin-bottom:15px;">
+            Search Videos
+        </h2>
+
+        <form method="GET" style="
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        ">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ $search }}"
+                placeholder="Search pizza videos..."
+                style="
+                    padding:12px;
+                    width:100%;
+                    border:none;
+                    outline:none;
+                    border-radius:10px 0 0 10px;
+                    background:#0f172a;
+                    color:white;
+                "
+            >
+
+            <button style="
+                padding:12px 18px;
+                border:none;
+                background:#f97316;
+                color:white;
+                border-radius:0 10px 10px 0;
+                cursor:pointer;
+                font-weight:600;
+            ">
+                Search
+            </button>
+
+        </form>
+
     </div>
 
     <div class="card-box">
-        <h2>{{ $platform }}</h2>
-        <p>Platform</p>
+
+        <h2>
+            {{ $platform === 'YouTube' ? '▶ YouTube' : '👽 Reddit' }}
+        </h2>
+
+        <p style="margin-bottom:10px;">
+            {{ $platform }} Ecosystem Analyzer
+        </p>
+
+        <!-- MODE INDICATOR -->
+        <div style="
+            display:inline-block;
+            padding:6px 12px;
+            border-radius:8px;
+            font-size:12px;
+            font-weight:600;
+            background:
+                {{ $platform === 'YouTube' ? '#ef4444' : '#6366f1' }};
+            color:white;
+        ">
+            {{ $platform === 'YouTube' ? 'Video Intelligence Mode' : 'Community Intelligence Mode' }}
+        </div>
+
     </div>
 
 </div>
 
-<!-- SEARCH -->
-<div class="search">
+<!-- ANALYTICS -->
+<div style="
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:20px;
+">
 
-    <form method="GET">
+    <!-- VIEWS CHART -->
+    <div style="
+        background:#1e293b;
+        padding:20px;
+        border-radius:18px;
+    ">
 
-        <input
-            type="text"
-            name="search"
-            value="{{ $search }}"
-            placeholder="Search pizza videos..."
-        >
+        <h2 style="margin-bottom:20px;color:#f97316;">
+            👁 Video Views Analytics
+        </h2>
 
-        <button>
-            Search
-        </button>
+        <canvas id="viewsChart"></canvas>
 
-    </form>
+    </div>
+
+    <!-- ENGAGEMENT CHART -->
+    <div style="
+        background:#1e293b;
+        padding:20px;
+        border-radius:18px;
+    ">
+
+        <h2 style="margin-bottom:20px;color:#f97316;">
+            📊 Engagement Analytics
+        </h2>
+
+        <canvas id="engagementChart"></canvas>
+
+    </div>
 
 </div>
 
@@ -268,27 +351,15 @@
 
 @php
 
-    $title = $video['snippet']['title'];
-
-    $channel = $video['snippet']['channelTitle'];
-
-    $videoId = $video['id']['videoId'] ?? '';
-
-    $published = $video['snippet']['publishedAt'] ?? null;
-
-    $stats = $videoStats[$videoId]['statistics'] ?? [];
-
-    $views = (int)($stats['viewCount'] ?? 0);
-
-    $likes = (int)($stats['likeCount'] ?? 0);
-
-    $commentsCount = (int)($stats['commentCount'] ?? 0);
-
-    $isTrending = $views >= 100000;
-
-    $engagement = $views > 0
-        ? round((($likes + $commentsCount) / $views) * 100, 2)
-        : 0;
+    $videoId = $video['id'];
+    $title = $video['title'];
+    $channel = $video['channel'];
+    $views = $video['views'];
+    $likes = $video['likes'];
+    $commentsCount = $video['comments'];
+    $published = $video['published'];
+    $isTrending = $video['trending'];
+    $engagement = $video['engagement'];
 
 @endphp
 
@@ -401,6 +472,113 @@
     @endif
 
 </div>
+
+<script>
+
+    // LABELS
+    const labels = @json($chartLabels);
+
+    // DATA
+    const viewsData = @json($chartViews);
+    const engagementData = @json($chartEngagement);
+
+    // VIEWS CHART
+    if(labels.length > 0){
+        new Chart(document.getElementById('viewsChart'), {
+
+            type: 'bar',
+
+            data: {
+                labels: labels,
+
+                datasets: [{
+                    label: 'Views',
+                    data: viewsData,
+                    backgroundColor: '#f97316',
+                    borderRadius: 10
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white'
+                        }
+                    }
+                },
+
+                scales: {
+
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+
+                    y: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+
+                }
+            }
+
+        });
+
+        // ENGAGEMENT CHART
+        new Chart(document.getElementById('engagementChart'), {
+
+            type: 'line',
+
+            data: {
+                labels: labels,
+
+                datasets: [{
+                    label: 'Engagement %',
+                    data: engagementData,
+                    borderColor: '#ef4444',
+                    backgroundColor: '#ef4444',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white'
+                        }
+                    }
+                },
+
+                scales: {
+
+                    x: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+
+                    y: {
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+
+                }
+            }
+
+        });
+    }
+
+</script>
 
 </body>
 </html>

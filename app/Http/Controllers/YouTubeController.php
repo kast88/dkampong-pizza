@@ -18,7 +18,7 @@ class YouTubeController extends Controller
             'part' => 'snippet',
             'q' => $search,
             'type' => 'video',
-            'maxResults' => 10,
+            'maxResults' => 12,
             'key' => $apiKey,
             'pageToken' => $pageToken
         ]);
@@ -27,13 +27,35 @@ class YouTubeController extends Controller
 
         $videos = $data['items'] ?? [];
 
-        // Extract video IDs
+        // VIDEO IDS
         $videoIds = collect($videos)
-            ->pluck('id.videoId')
+            ->map(function($video){
+                return $video['id']['videoId'] ?? null;
+            })
             ->filter()
+            ->values()
             ->implode(',');
 
-        // Get video statistics
+        if(empty($videoIds)){
+
+            return view('youtube', [
+                'videos' => [],
+                'videoStats' => [],
+                'search' => $search,
+                'platform' => 'YouTube',
+                'totalVideos' => 0,
+                'nextPageToken' => null,
+                'prevPageToken' => null,
+
+                'chartLabels' => [],
+                'chartViews' => [],
+                'chartLikes' => [],
+                'chartComments' => [],
+                'chartEngagement' => [],
+            ]);
+        }
+
+        // VIDEO STATS
         $statsResponse = Http::get('https://www.googleapis.com/youtube/v3/videos', [
             'part' => 'statistics,snippet',
             'id' => $videoIds,
@@ -42,23 +64,82 @@ class YouTubeController extends Controller
 
         $statsData = $statsResponse->json()['items'] ?? [];
 
-        // Map stats by video ID
         $videoStats = [];
 
+        // CHART DATA
+        $chartLabels = [];
+        $chartViews = [];
+        $chartLikes = [];
+        $chartComments = [];
+        $chartEngagement = [];
+
+        $videosData = [];
+
         foreach ($statsData as $item) {
-            $videoStats[$item['id']] = $item;
+
+            if (
+                !isset($item['statistics']['viewCount']) ||
+                !isset($item['statistics']['likeCount']) ||
+                !isset($item['statistics']['commentCount'])
+            ) {
+                continue;
+            }
+
+            $videoStats[$item['id']] = $item; // ✅ IMPORTANT FIX
+
+            $views = (int) $item['statistics']['viewCount'];
+            $likes = (int) $item['statistics']['likeCount'];
+            $comments = (int) $item['statistics']['commentCount'];
+
+            $engagement = $views > 0
+                ? round((($likes + $comments) / $views) * 100, 2)
+                : 0;
+
+            $videosData[] = [
+                'id' => $item['id'],
+                'title' => $item['snippet']['title'] ?? 'Video',
+                'channel' => $item['snippet']['channelTitle'] ?? '',
+                'published' => $item['snippet']['publishedAt'] ?? null,
+                'views' => $views,
+                'likes' => $likes,
+                'comments' => $comments,
+                'engagement' => $engagement,
+                'trending' => $views >= 100000
+            ];
         }
 
+        foreach ($videosData as $video) {
+
+            $chartLabels[] = substr($video['title'], 0, 20) . '...';
+            $chartViews[] = $video['views'];
+            $chartLikes[] = $video['likes'];
+            $chartComments[] = $video['comments'];
+            $chartEngagement[] = $video['engagement'];
+        }
+
+        $sortedVideos = collect($videosData)
+            ->sortByDesc('views')
+            ->values()
+            ->all();
+
         return view('youtube', [
-            'videos' => $videos,
+            'videos' => $sortedVideos,
             'videoStats' => $videoStats,
             'search' => $search,
             'platform' => 'YouTube',
             'totalVideos' => $data['pageInfo']['totalResults'] ?? 0,
             'nextPageToken' => $data['nextPageToken'] ?? null,
-            'prevPageToken' => $data['prevPageToken'] ?? null
+            'prevPageToken' => $data['prevPageToken'] ?? null,
+
+            // CHARTS
+            'chartLabels' => $chartLabels,
+            'chartViews' => $chartViews,
+            'chartLikes' => $chartLikes,
+            'chartComments' => $chartComments,
+            'chartEngagement' => $chartEngagement,
         ]);
     }
+
 
     public function watch($id)
     {
