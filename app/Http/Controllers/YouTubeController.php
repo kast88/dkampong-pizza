@@ -31,7 +31,7 @@ class YouTubeController extends Controller
             'videos' => $videos,
             'search' => $search,
             'platform' => 'YouTube',
-            'totalVideos' => count($videos),
+            'totalVideos' => $data['pageInfo']['totalResults'] ?? 0,
             'nextPageToken' => $data['nextPageToken'] ?? null,
             'prevPageToken' => $data['prevPageToken'] ?? null
         ]);

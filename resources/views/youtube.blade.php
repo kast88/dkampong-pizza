@@ -147,7 +147,12 @@
 <div class="dashboard">
 
     <div class="card-box">
-        <h2>{{ $totalVideos }}</h2>
+        <h2>
+            {{ number_format($totalVideos) }}
+            @if($totalVideos >= 1000000)
+                <span style="font-size:16px;">++</span>
+            @endif
+        </h2>
         <p>Total Videos</p>
     </div>
 
@@ -191,7 +196,7 @@
             <div class="channel">🎥 {{ $channel }}</div>
 
             <a class="btn"
-            href="/watch/{{ $videoId }}">
+            href="/watch_youtube/{{ $videoId }}">
                 Watch
             </a>
         </div>
