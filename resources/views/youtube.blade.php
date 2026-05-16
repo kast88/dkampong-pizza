@@ -74,6 +74,10 @@
             <p>Platform insight mode</p>
         </div>
         <div class="stat-card">
+            <h2>{{ round($averageLikeRatio, 2) }}%</h2>
+            <p>Average like-to-view ratio</p>
+        </div>
+        <div class="stat-card">
             <h2>{{ $nextPageToken ? 'More available' : 'Last page' }}</h2>
             <p>Navigation state</p>
         </div>
@@ -83,6 +87,10 @@
         <div class="panel">
             <h3>Video engagement preview</h3>
             <canvas id="engagementChart" style="width:100%;height:240px;"></canvas>
+        </div>
+        <div class="panel">
+            <h3>Like ratio trend</h3>
+            <canvas id="likeRatioChart" style="width:100%;height:240px;"></canvas>
         </div>
     </div>
 
@@ -155,6 +163,7 @@
 <script>
     const labels = @json($chartLabels);
     const engagementData = @json($chartEngagement);
+    const likeRatioData = @json($chartLikeRatio);
     if(labels.length > 0){
         new Chart(document.getElementById('engagementChart'), {
             type: 'line',
@@ -167,6 +176,29 @@
                     backgroundColor: '#0f172a',
                     tension: 0.35,
                     fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                },
+                scales: {
+                    x: { ticks: { color: '#475569' }, grid: { color: '#e2e8f0' } },
+                    y: { ticks: { color: '#475569' }, grid: { color: '#e2e8f0' } }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('likeRatioChart'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Like ratio %',
+                    data: likeRatioData,
+                    backgroundColor: '#2563eb',
+                    borderRadius: 8,
                 }]
             },
             options: {
