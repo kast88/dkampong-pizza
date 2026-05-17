@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\YouTubeController;
 use App\Support\SessionUser;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RedditController;
 
 Route::get('/', [YouTubeController::class, 'index']);
 
@@ -21,3 +22,6 @@ Route::middleware('session.auth')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+// Reddit routes
+Route::get('/reddit', [RedditController::class, 'index']);
+Route::get('/watch_reddit/{id}', [RedditController::class, 'show']);
