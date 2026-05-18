@@ -52,6 +52,8 @@ class YouTubeController extends Controller
                 'chartLikes' => [],
                 'chartComments' => [],
                 'chartEngagement' => [],
+                'chartLikeRatio' => [],
+                'averageLikeRatio' => 0,
             ]);
         }
 
@@ -72,6 +74,7 @@ class YouTubeController extends Controller
         $chartLikes = [];
         $chartComments = [];
         $chartEngagement = [];
+        $chartLikeRatio = [];
 
         $videosData = [];
 
@@ -95,6 +98,10 @@ class YouTubeController extends Controller
                 ? round((($likes + $comments) / $views) * 100, 2)
                 : 0;
 
+            $likeRatio = $views > 0
+                ? round(($likes / $views) * 100, 2)
+                : 0;
+
             $videosData[] = [
                 'id' => $item['id'],
                 'title' => $item['snippet']['title'] ?? 'Video',
@@ -104,6 +111,7 @@ class YouTubeController extends Controller
                 'likes' => $likes,
                 'comments' => $comments,
                 'engagement' => $engagement,
+                'likeRatio' => $likeRatio,
                 'trending' => $views >= 100000
             ];
         }
@@ -115,12 +123,15 @@ class YouTubeController extends Controller
             $chartLikes[] = $video['likes'];
             $chartComments[] = $video['comments'];
             $chartEngagement[] = $video['engagement'];
+            $chartLikeRatio[] = $video['likeRatio'];
         }
 
         $sortedVideos = collect($videosData)
             ->sortByDesc('views')
             ->values()
             ->all();
+
+        $averageLikeRatio = collect($videosData)->avg('likeRatio');
 
         return view('youtube', [
             'videos' => $sortedVideos,
@@ -137,6 +148,8 @@ class YouTubeController extends Controller
             'chartLikes' => $chartLikes,
             'chartComments' => $chartComments,
             'chartEngagement' => $chartEngagement,
+            'chartLikeRatio' => $chartLikeRatio,
+            'averageLikeRatio' => round($averageLikeRatio, 2),
         ]);
     }
 
