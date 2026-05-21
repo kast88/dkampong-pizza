@@ -33,4 +33,23 @@ class BloggerService
             ->throw()
             ->json();
     }
+
+    public function getPost(string $blogId, string $postId): array
+    {
+        return Http::get("{$this->baseUrl}/blogs/{$blogId}/posts/{$postId}", [
+            'key' => config('services.blogger.key'),
+            'fetchBody' => true,
+            'fields' => 'id,title,content,published,updated,url,labels,author/displayName,replies/totalItems',
+        ])->throw()->json();
+    }
+
+    public function getComments(string $blogId, string $postId): array
+    {
+        return Http::get("{$this->baseUrl}/blogs/{$blogId}/posts/{$postId}/comments", [
+            'key' => config('services.blogger.key'),
+            'fetchBodies' => true,
+            'maxResults' => 20,
+            'fields' => 'items(id,content,published,updated,author/displayName,author/image/url),nextPageToken',
+        ])->throw()->json();
+    }
 }

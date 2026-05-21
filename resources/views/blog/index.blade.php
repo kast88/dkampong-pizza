@@ -79,7 +79,11 @@
                             </div>
 
                             <h2 class="font-serif text-2xl leading-tight text-ink transition group-hover:text-rosebrown">
-                                <a href="{{ $post['url'] ?? '#' }}" target="_blank" rel="noopener noreferrer">
+                                <a href="{{ route('blog.show', [
+                                    'blogId' => $blog['id'],
+                                    'postId' => $post['id'],
+                                    'url' => $currentUrl,
+                                ]) }}">
                                     {{ $post['title'] ?? 'Untitled Post' }}
                                 </a>
                             </h2>
@@ -99,15 +103,14 @@
                             </div>
 
                             <div class="mt-6 flex items-center justify-between gap-4 pt-4">
-                                <!-- <a href="{{ $post['url'] ?? '#' }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <a href="{{ route('blog.show', [
+                                    'blogId' => $blog['id'],
+                                    'postId' => $post['id'],
+                                    'url' => $currentUrl,
+                                    ]) }}"
                                     class="inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-rosebrown">
-                                        Read article
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.75L21 12m0 0l-3.75 3.25M21 12H3" />
-                                        </svg>
-                                    </a> -->
+                                    Read article
+                                </a>
 
                                 @if(isset($post['replies']['totalItems']))
                                     <span class="text-sm text-gray-400">

@@ -49,4 +49,17 @@ class BloggerController extends Controller
             'currentUrl' => $url,
         ]);
     }
+
+    public function show(string $blogId, string $postId, Request $request, BloggerService $blogger)
+    {
+        $post = $blogger->getPost($blogId, $postId);
+        $commentsResponse = $blogger->getComments($blogId, $postId);
+
+        return view('blog.show', [
+            'blogId' => $blogId,
+            'post' => $post,
+            'comments' => collect($commentsResponse['items'] ?? []),
+            'currentUrl' => $request->get('url'),
+        ]);
+    }
 }
