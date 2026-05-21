@@ -5,6 +5,7 @@ use App\Http\Controllers\YouTubeController;
 use App\Support\SessionUser;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RedditController;
+use App\Http\Controllers\BloggerController;
 
 Route::get('/', [YouTubeController::class, 'index']);
 
@@ -21,3 +22,7 @@ Route::middleware('session.auth')->group(function () {
 // Reddit routes
 Route::get('/reddit', [RedditController::class, 'index']);
 Route::get('/watch_reddit/{id}', [RedditController::class, 'show']);
+
+// Blogger routes
+Route::get('/blogger', [BloggerController::class, 'index']);
+Route::get('/watch_blogger/{id}', [BloggerController::class, 'show']);
