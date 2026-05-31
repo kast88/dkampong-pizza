@@ -5,17 +5,47 @@
     <!-- Navigation Bar -->
     <nav class="fixed w-full top-0 z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+            <!-- Logo -->
             <div class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
                 🍕 D'Kampong Pizza
             </div>
-            <a href="{{ route('login') }}" class="px-6 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition">
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex gap-8 text-zinc-300 font-semibold">
+
+                <a href="#home" class="hover:text-orange-400 transition">
+                    Home
+                </a>
+
+                <a href="#menu" class="hover:text-orange-400 transition">
+                    Menu
+                </a>
+
+                <!-- YouTube Videos Section -->
+                <a href="#videos" class="hover:text-orange-400 transition">
+                    🎥 Videos
+                </a>
+
+                <!-- Reddit Reviews Section -->
+                <a href="#reviews" class="hover:text-orange-400 transition">
+                    💬 Reviews
+                </a>
+
+            </div>
+
+            <!-- Login -->
+            <a href="{{ route('login') }}"
+            class="px-6 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition">
                 Login
             </a>
+
         </div>
     </nav>
 
     <!-- Hero Section - Full Image Static -->
-    <div class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat" style="background-image: url('/landing_page.png');">
+    <div id="home" class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat"
+        style="background-image: url('/landing_page.png');">
     </div>
 
     <!-- Content Section -->
@@ -173,7 +203,7 @@
     </div>
 
     <!-- Menu Section -->
-    <section class="py-20 px-4 relative" style="background-image: url('/menu.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section id="menu" class="py-20 px-4 relative" style="background-image: url('/menu.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <!-- Dark overlay -->
         <div class="absolute inset-0 bg-black/50"></div>
         <div class="max-w-7xl mx-auto relative z-10">
@@ -388,6 +418,78 @@
         </div>
     </section>
 
+    <!-- YouTube Section -->
+    <section id="videos" class="py-20 px-4 bg-zinc-950">
+        <div class="max-w-7xl mx-auto">
+
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">
+                🎥 What People Say on YouTube
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                @foreach($youtubeVideos as $video)
+                    <div class="bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-orange-500 transition">
+
+                        <img src="{{ $video['thumbnail'] }}" class="w-full h-48 object-cover">
+
+                        <div class="p-4">
+                            <h3 class="text-white font-semibold text-sm">
+                                {{ $video['title'] }}
+                            </h3>
+
+                            <p class="text-zinc-400 text-xs mt-2">
+                                {{ $video['channel'] }}
+                            </p>
+
+                            <a href="https://www.youtube.com/watch?v={{ $video['id'] }}"
+                            target="_blank"
+                            class="inline-block mt-3 text-orange-400 text-sm">
+                                Watch Video →
+                            </a>
+                        </div>
+
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Reddit Reviews Section -->
+    <section id="reviews" class="py-20 px-4 bg-zinc-900">
+        <div class="max-w-7xl mx-auto">
+
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">
+                💬 Reddit Discussions
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                @foreach($redditReviews as $review)
+                <div class="p-6 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-orange-500 transition">
+
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <p class="text-orange-400 font-semibold">u/{{ $review['user'] }}</p>
+                            <p class="text-white font-bold text-sm">{{ $review['title'] }}</p>
+                        </div>
+
+                        <div class="text-right text-zinc-400 text-sm">
+                            🔺 {{ $review['upvotes'] }}<br>
+                            💬 {{ $review['comments'] }}
+                        </div>
+                    </div>
+
+                    <p class="text-zinc-300 mt-3">
+                        {{ $review['text'] }}
+                    </p>
+                </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
     <!-- Footer CTA -->
     <div class="py-20 px-4 border-t border-zinc-800" style="background-color: #27272a;">
         <div class="max-w-4xl mx-auto text-center space-y-8">
@@ -410,7 +512,7 @@
     <!-- Footer -->
     <footer class="border-t border-zinc-800 py-8 px-4" style="background-color: #18181b;">
         <div class="max-w-7xl mx-auto text-center text-zinc-400 text-sm">
-            <p>&copy; 2024 D'Kampong Pizza. All rights reserved. | Crafted with ❤️</p>
+            <p>&copy; 2026 D'Kampong Pizza. All rights reserved. | Crafted with ❤️</p>
         </div>
     </footer>
 </div>

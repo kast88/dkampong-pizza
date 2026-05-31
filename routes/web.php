@@ -6,10 +6,11 @@ use App\Support\SessionUser;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RedditController;
 use App\Http\Controllers\BloggerController;
+use App\Http\Controllers\LandingPageController;
 
 // Route::get('/', [YouTubeController::class, 'index']);
 
-Route::view('/', 'landing')->name('landing');
+Route::get('/', [LandingPageController::class, 'index'])->name('landing');
 
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
