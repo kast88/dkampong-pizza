@@ -17,36 +17,18 @@ class LoginController extends Controller
 {
     public function showLoginForm(): View
     {
-        if (SessionUser::check()) {
-            return view('dashboard', [
-                'user' => SessionUser::get(),
-            ]);
-        }
-
         return view('login');
     }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string', 'min:4'],
-        ]);
-
-        // Fake login, no DB
-        if (
-            $credentials['email'] !== 'admin@example.com' ||
-            $credentials['password'] !== '123456'
-        ) {
-            return back()
-                ->withErrors(['email' => 'Invalid credentials.'])
-                ->withInput();
-        }
+        // Accept any submission (including empty) and redirect to dashboard.
+        $email = $request->input('email', '');
 
         SessionUser::put([
             'id' => 'USR-1001',
             'name' => 'System Admin',
-            'email' => $credentials['email'],
+            'email' => $email,
             'role' => UserRole::Admin,
             'provider' => LoginProvider::Local,
         ]);

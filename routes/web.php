@@ -16,18 +16,23 @@ Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])-
 
 Route::get('/', [App\Http\Controllers\LoginController::class, 'dashboard'])->name('dashboard');
 Route::get('/login-admin', [App\Http\Controllers\LoginController::class, 'showLoginForm'])->name('login');
+<<<<<<< Updated upstream
 Route::middleware('session.auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\LoginController::class, 'dashboard'])->name('dashboard');
     // Route::get('/', [YouTubeController::class, 'index']);
     Route::get('/watch_youtube/{id}', [YouTubeController::class, 'watch']);
     
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+=======
+// Make dashboard and content routes public (no login required)
+Route::get('/dashboard', [App\Http\Controllers\LoginController::class, 'dashboard'])->name('dashboard');
+Route::get('/watch_youtube/{id}', [YouTubeController::class, 'watch']);
 
-    // Reddit routes
-    Route::get('/reddit', [RedditController::class, 'index']);
-    Route::get('/watch_reddit/{id}', [RedditController::class, 'show']);
+// Reddit routes
+Route::get('/reddit', [RedditController::class, 'index']);
+Route::get('/watch_reddit/{id}', [RedditController::class, 'show']);
+>>>>>>> Stashed changes
 
-    // Blogger routes
-    Route::get('/blogger', [BloggerController::class, 'index'])->name('blog.index');
-    Route::get('/blogger/{blogId}/post/{postId}', [BloggerController::class, 'show'])->name('blog.show');
-});
+// Blogger routes
+Route::get('/blogger', [BloggerController::class, 'index'])->name('blog.index');
+Route::get('/blogger/{blogId}/post/{postId}', [BloggerController::class, 'show'])->name('blog.show');
