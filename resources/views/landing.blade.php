@@ -505,7 +505,9 @@
             <div class="grid md:grid-cols-2 gap-6">
 
                 @foreach($redditReviews as $review)
-                <div class="p-6 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-orange-500 transition">
+
+                <a href="{{ $review['url'] }}" target="_blank"
+                class="block p-6 rounded-xl bg-zinc-950 border border-zinc-800 hover:border-orange-500 transition">
 
                     <div class="flex justify-between items-center mb-2">
                         <div>
@@ -522,7 +524,9 @@
                     <p class="text-zinc-300 mt-3">
                         {{ $review['text'] }}
                     </p>
-                </div>
+
+                </a>
+
                 @endforeach
 
             </div>
