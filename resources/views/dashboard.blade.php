@@ -3,19 +3,19 @@
 @section('content')
 @php
     $name = $user['name'] ?? 'Admin';
-    
+
     // YouTube data
     $youtubeVideos = $youtubeVideos ?? collect([]);
     $firstVideo = $youtubeVideos->first();
     $youtubeSnippet = $firstVideo['video']['snippet'] ?? [];
     $youtubeStats = $firstVideo['video']['statistics'] ?? [];
-    
+
     $ytTitle = $youtubeSnippet['title'] ?? 'No YouTube video loaded';
     $ytChannel = $youtubeSnippet['channelTitle'] ?? 'Unknown Channel';
     $ytViews = (int) ($youtubeStats['viewCount'] ?? 0);
     $ytLikes = (int) ($youtubeStats['likeCount'] ?? 0);
     $ytCommentsTotal = (int) ($youtubeStats['commentCount'] ?? 0);
-    
+
     // Reddit data
     $redditTitle = $redditPost['title'] ?? 'No Reddit post loaded';
     $redditSubreddit = $redditPost['subreddit'] ?? 'Unknown subreddit';
@@ -25,19 +25,19 @@
     $redditUrl = isset($redditPost['url']) ? 'https://reddit.com' . $redditPost['url'] : '#';
 
     $redditComments = $redditComments ?? [];
-    
+
     // Blog defaults
     $blog = $blog ?? [];
     $posts = $posts ?? collect([]);
-    
+
     // Calculate blog statistics
     $blogTotalPosts = $blog['posts']['totalItems'] ?? $posts->count();
     $blogTotalComments = 0;
-    
+
     foreach ($posts as $post) {
         $blogTotalComments += $post['replies']['totalItems'] ?? 0;
     }
-    
+
     $blogAvgCommentsPerPost = $posts->count() > 0 ? round($blogTotalComments / $posts->count(), 1) : 0;
     $blogEngagement = $blogTotalPosts > 0 ? round(($blogTotalComments / $blogTotalPosts) * 100, 2) : 0;
 
@@ -57,7 +57,7 @@
 
     $redditChartLabels = ['Upvotes', 'Comments', 'Avg Comment Length'];
     $redditChartValues = [$redditUps, $redditCommentsTotal, $redditAvgCommentLength];
-                        
+
     use App\Support\SessionUser;
     $isLoggedIn = SessionUser::check();
 @endphp
@@ -125,9 +125,9 @@
                         <button type="button" class="media-tab-btn rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 px-5 py-3 text-sm font-semibold text-white" data-tab="youtube">
                             ▶️ YouTube
                         </button>
-                        <button type="button" class="media-tab-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-200 hover:bg-white/10" data-tab="reddit">
+                        {{-- <button type="button" class="media-tab-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-200 hover:bg-white/10" data-tab="reddit">
                             🧡 Reddit
-                        </button>
+                        </button> --}}
                         <button type="button" class="media-tab-btn rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-200 hover:bg-white/10" data-tab="blog">
                             📖 Blog
                         </button>
