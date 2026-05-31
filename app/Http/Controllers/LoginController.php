@@ -35,8 +35,8 @@ class LoginController extends Controller
 
         // Fake login, no DB
         if (
-            $credentials['email'] !== 'admin@example.com' ||
-            $credentials['password'] !== '123456'
+            $credentials['email'] !== env('ADMIN_EMAIL') ||
+            $credentials['password'] !== env('ADMIN_PASSWORD')
         ) {
             return back()
                 ->withErrors(['email' => 'Invalid credentials.'])
