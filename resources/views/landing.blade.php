@@ -3,7 +3,7 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950">
     <!-- Navigation Bar -->
-    <nav class="fixed w-full top-0 z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-800">
+    <nav class="w-full top-0 z-50 backdrop-blur-md bg-zinc-950/80 border-b border-zinc-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
 
             <!-- Logo -->
@@ -242,15 +242,15 @@
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <!-- Image Placeholder -->
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/1.png" alt="Ayam Percik Pizza" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">�</span>
                         </div>
                         <!-- Content -->
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Ayam Percik Pizza</h3>
                             <p class="text-zinc-400 text-sm mb-4">Tender grilled chicken with creamy Kelantan-style percik sauce.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$28.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 28</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -262,14 +262,14 @@
                 <div class="menu-item all classic">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/2.png" alt="Ikan Bilis Crunch" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🐟</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Ikan Bilis Crunch</h3>
                             <p class="text-zinc-400 text-sm mb-4">Crispy anchovies, onions, chili flakes, and mozzarella cheese.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$24.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 20</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -282,14 +282,14 @@
                 <div class="menu-item all spicy">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/3.png" alt="Sambal Udang Village" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🌶️</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Sambal Udang Village</h3>
                             <p class="text-zinc-400 text-sm mb-4">Juicy prawns topped with spicy homemade sambal and melted cheese.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$33.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 25</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -301,14 +301,14 @@
                 <div class="menu-item all spicy">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/4.png" alt="Pedas Giler Kampung" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🔥</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Pedas Giler Kampung</h3>
                             <p class="text-zinc-400 text-sm mb-4">Bird's eye chilies, spicy sambal, chicken slices, and extra cheese.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$29.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 40</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -321,14 +321,14 @@
                 <div class="menu-item all premium">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/5.png" alt="D'Kampong Signature" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">👑</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">D'Kampong Signature</h3>
                             <p class="text-zinc-400 text-sm mb-4">Chicken rendang, sambal, mushrooms, onions, and premium cheese blend.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$34.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 45</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -340,14 +340,14 @@
                 <div class="menu-item all premium">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/6.png" alt="Rendang Tok Special" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">�</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Rendang Tok Special</h3>
                             <p class="text-zinc-400 text-sm mb-4">Traditional beef rendang with mozzarella and fresh herbs.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$30.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 30</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -359,14 +359,14 @@
                 <div class="menu-item all premium">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/7.png" alt="Sotong Bakar Pizza" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🦑</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Sotong Bakar Pizza</h3>
                             <p class="text-zinc-400 text-sm mb-4">Grilled squid, smoky sambal, mozzarella, and fresh herbs.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$32.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 40</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -379,14 +379,14 @@
                 <div class="menu-item all vegetarian">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/8.png" alt="Ulam Garden Pizza" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🌿</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Ulam Garden Pizza</h3>
                             <p class="text-zinc-400 text-sm mb-4">Fresh vegetables, herbs, cherry tomatoes, and garlic cream sauce.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$23.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 20</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
@@ -398,14 +398,14 @@
                 <div class="menu-item all vegetarian">
                     <div class="rounded-lg overflow-hidden border border-zinc-700 bg-zinc-800/50 hover:border-orange-500/50 transition-all transform hover:scale-105">
                         <div class="w-full h-64 bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center relative overflow-hidden">
+                            <img src="/menu/9.png" alt="Cendawan Hutan" class="absolute inset-0 w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10"></div>
-                            <span class="text-6xl">🍄</span>
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-bold text-white mb-2">Cendawan Hutan</h3>
                             <p class="text-zinc-400 text-sm mb-4">Mixed mushrooms, garlic butter, herbs, and creamy mozzarella.</p>
                             <div class="flex justify-between items-center">
-                                <span class="text-orange-400 font-bold text-lg">$26.90</span>
+                                <span class="text-orange-400 font-bold text-lg">RM 25</span>
                                 <button class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold transition text-sm">
                                     Order
                                 </button>
